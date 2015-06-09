@@ -1,0 +1,44 @@
+
+<div class="breadcrumbs">
+	<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">Home</span></a></span>
+	&#62;
+	<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ blog.url }}" title="{{ blog.title | escape }}" itemprop="url"><span itemprop="title">{{ blog.title }}</span></a></span>
+</div>
+
+<h4>Blog</h4>
+
+
+<div id="bloglist">
+	<ul>
+		{% for article in blog.articles %}
+			<li>
+			<div>
+				{{ article.excerpt }} 
+			</div>
+			<div class="">
+				<h3 class=""><a href="{{ article.url }}" title="{{ article.title | escape }}">{{ article.title }}</a></h3>
+			
+				<p class="">
+				Posted on
+				{{ article.published_at | date: "%B %d, %Y" }}
+				</p>
+			</div>
+			<div class="">
+
+				{% if article.excerpt != blank %}
+					<div class="">
+					{{ article.excerpt }}
+					</div>
+					<p class="">
+						<a href="{{ article.url }}" title="{{ article.title | escape }}">Read More &#187;</a>
+					</p>
+				{% else %}
+					{{ article.content }} 
+				{% endif %}
+				
+
+			</div>
+			</li>
+		{% endfor %}
+	</ul>
+</div>

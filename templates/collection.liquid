@@ -1,0 +1,81 @@
+{% paginate collection.products by 42 %}
+
+
+
+
+<div class="breadcrumbs">
+	{% if collection.handle != newArrivalsPage %}
+			<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url">
+					<span itemprop="title">Home</span>
+				</a>
+			</span> 
+			&#62;
+			<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+				<a href="{{ collection.url }}" title="{{ collection.title | escape }}" itemprop="url">
+					<span itemprop="title">{{ collection.title }}</span>
+				</a>
+			</span>       
+		
+			{% if current_tags %}
+				{% for tag in current_tags %}
+					&#62;
+					<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+						<a href="/collections/{% if collection.handle != blank %}{{ collection.handle }}{% else %}all{% endif %}/{{ tag | handleize }}" title="{{ tag | escape }}" itemprop="url">
+							<span itemprop="title">{{ tag }}</span>
+						</a>
+					</span>       
+				{% endfor %}
+			{% endif %}
+		
+			{% if paginate.pages != 0 and paginate.pages > 1 %}      
+				&#62; Page {{ paginate.current_page }} of {{ paginate.pages }}
+			{% endif %}
+	{% endif %}
+</div>
+
+<h4>{{collection.title}}</h4>
+
+{% if collection.description != "" %}
+	<div class="feature_text">
+		{{ collection.description }}
+	</div>
+{% endif %}
+
+{% assign products = collection.products %}
+{% assign products_per_row = settings.products_per_row %}
+{% include 'product-loop' %}
+
+
+<div class="paginate">
+	<div>
+		{% if paginate.previous %}
+			{{ paginate.previous.title | link_to: paginate.previous.url }}
+		{% endif %}
+	</div><div>
+	{% for part in paginate.parts %}
+		<span class="page">
+			{% if part.is_link and forloop.last %}
+				{{ part.title | link_to: part.url }}
+			{% elsif part.is_link%}
+				{{ part.title | link_to: part.url }},
+			{% elsif part.title == current_page and forloop.last != true%}
+				<span class="underline">{{ part.title}}</span>,
+			{% else %}
+				{{ part.title}}
+			{% endif %}
+		</span>
+	{% endfor %}
+	</div><div>
+		{% if paginate.next %}
+			{{ paginate.next.title | link_to: paginate.next.url }}
+		{% endif %}
+	</div>				
+</div>
+
+{% endpaginate %}
+
+
+<h4 id="brandlisttitle">Our Brands</h4>
+
+{% include 'ourbrands' %}

@@ -1,0 +1,98 @@
+<div id="cartpage">
+
+<h4 class="">SHOPPING CART</h4>
+
+
+{% if cart.item_count > 0 %}
+<form action="/cart" method="post" id="cart" class="cart">
+	<table>
+		<tr>
+			<th class="desc">Item</th>
+			<th class="price">Price</th>
+			<th class="qty">Quantity</th>
+			<th class="total">Total</th>
+			<th class="remove"></th>			
+		</tr>
+
+		<tr class="break">
+			<td><span></span></td>
+			<td><span></span></td>
+			<td><span></span></td>
+			<td><span></span></td>
+			<td><span></span></td>
+		</tr>
+	
+		{% for item in cart.items %}
+		<tr id="cart-item-{{item.variant.id}}" class="cart-item">
+			<td class="item desc">
+				<a href="/collections/{{ item.product.collections.first.title | downcase }}/products/{{ item.product.handle }}">
+					<div class="image">
+						<div><img src="{{ item.product.images[0] | product_img_url: 'compact' }}"></div>
+
+					</div><div class="title"> 
+						<div>{{ item.title }}</div>
+						<div>{{item.product.options}}: {{item.variant.options}}</div>
+					 </div>
+				</a>
+			</td>
+
+			<td class="item price">
+				{{ item.price | money }}
+			</td>
+
+			<td class="item qty">
+				<input type="number" size="4" pattern="[0-9]*" name="updates[{{item.variant.id}}]" id="quantity-{{ item.variant.id }}" class="quantity" value="{{ item.quantity }}" min="1" onfocus="this.select();"/>
+			</td>
+
+			<td class="item price">
+				{{ item.line_price | money }}
+			</td>
+
+			<td class="item remove"><div><a href="/cart/change/{{item.variant.id}}?quantity=0">X</a></div></td>			
+
+		</tr>
+		{% endfor %}
+
+
+		<tr class="break">
+			<td><span></span></td>
+			<td><span></span></td>
+			<td><span></span></td>
+			<td><span></span></td>
+			<td><span></span></td>
+		</tr>
+	</table>
+
+	<div class="finalcheckout">
+		<div class="leftcheckout">
+			<input class="button" type="submit" id="update-cart" name="update" value="Update cart"/>
+			//
+			<a href="{% if cart.items.first.product.collections != blank %}{{ cart.items.first.product.collections.last.url }}{% else %}/collections/all{% endif %}" class="thridtitle">Continue Shopping</a>
+
+
+		</div><div class="rightcheckout">
+			<div class="subtotal">
+				subtotal
+			</div>
+			<div>
+				{{ cart.total_price | money }} {{shop.currency}}
+			</div>
+			<div class="shipping">
+				Excluding tax &amp; shipping
+			</div>
+			<input class="button" type="submit" name="checkout" value="Checkout" />
+			{% if additional_checkout_buttons %}
+				<div id="othercheckouts" class="smallbuffer">
+					{{ content_for_additional_checkout_buttons }}
+				</div>
+			{% endif %}
+		</div>
+	</div>
+</form>
+{% else %}
+<div class="justaline">
+	<p>There are no items in your cart. <a href="/collections/all">Continue Shopping</a></p>
+</div>
+{% endif %}
+
+</div>

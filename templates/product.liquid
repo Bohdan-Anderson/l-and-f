@@ -1,0 +1,242 @@
+{% assign nocart = false %}
+
+{% for tag in product.tags%}
+	{% if tag == "nocart"%}
+		{% assign nocart = true %}
+	{% endif %}
+{% endfor %}
+
+{% capture bohdansizing %}{{product.vendor|handleize}}-{{product.type|handleize}}{% endcapture %}
+{% capture shipping %}shipping-policy-canada{% endcapture %}
+{% capture shippingNA %}north-america{% endcapture %}
+
+
+{% if pages[bohdansizing].content != "" %}
+<div class="sizing">
+	<div>
+		{% if product.type == "Denim" or product.type == "Pants" or product.type == "Pants & Denim" %}
+			<img src="{{ 'pants-icon.jpg' | asset_url }}">
+		{% elsif product.type == "Shirts" %}
+			<img src="{{ 'shirt-icon.jpg' | asset_url }}">
+		{% elsif product.type == "T-Shirts" %}
+			<img src="{{ 't-shirt-icon.jpg' | asset_url }}">	
+		{% elsif product.type == "Shorts & Swim" or product.type == "Shorts" %}
+			<img src="{{ 'shorts-icon.jpg' | asset_url }}">
+		{% elsif product.type == "Sweatshirts" or product.type == "Sweaters" %}
+			<img src="{{ 'sweatshirt-icon.jpg' | asset_url }}">
+		{% elsif product.type == "Outerwear" or product.type == "Jackets" %}
+			<img src="{{ 'jacket-icon.jpg' | asset_url }}">			
+		{% endif %}
+		
+		{{ pages[bohdansizing].content }}
+		
+		<div class="mini"><a href="#">X</a></div>
+	</div>
+</div>
+{% endif %}
+
+<div class="breadcrumbs">
+	<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">Home</span></a></span> 
+	&#62;
+	<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+		{% if collection %}
+			<a href="{{ collection.url }}" title="{{ collection.title | escape }}">{{ collection.title }}</a>
+		{% else %}
+			<a href="/collections/all" title="All Products">Products</a>
+		{% endif %}
+	</span>
+	&#62;
+	{{ product.title }}
+</div>
+
+<div id="productwrapper">
+	<div class="images">
+		{% if product.images.size > 1 %}
+		<div class="leftcolumn">
+
+			{% for image in product.images %} 
+				<a href="{{ image.src | product_img_url: 'master' }}"><img src="{{ image.src | product_img_url: 'medium' }}" alt="image.alt"></a>
+			{% endfor %}
+
+		</div><div class="rightcolumn">{% endif %}
+			<div id="imagezoomed">
+				<img src="{{ product.featured_image | product_img_url: 'master' }}" alt="product.featured_image.alt">
+			</div>
+		{% if product.images.size > 1 %}</div>{% endif %}<div class="mobileimage">
+			{% for image in product.images %} 
+				<a href="{{ image.src | product_img_url: 'master' }}"><img src="{{ image.src | product_img_url: 'medium' }}" alt="image.alt"></a>
+			{% endfor %}</div>
+
+
+
+	</div><div class="info">
+		<h2 class="dashafter title">
+			{{ product.title }} 
+		</h2>
+		<!-- {{product.vendor}}-{{product.type}} -->
+
+
+		<div class="dashafter price" itemprop="offerDetails" itemscope itemtype="http://data-vocabulary.org/Offer">
+			<meta itemprop="currency" content="{{ shop.currency }}" />
+			<meta itemprop="seller" content="{{ shop.name | escape }}" />
+			<meta itemprop="availability" content="{% if product.available %}in_stock{% else %}out_of_stock{% endif %}" />
+			<span class="strike">{% if product.price < product.compare_at_price_max %}{{ product.compare_at_price | money }}{% endif %}</span>
+
+			<span itemprop="price" content="{{ product.price | money_without_currency }}" class="{% if product.price < product.compare_at_price_max %}red{% endif %}">
+				{{ product.price | money }} {% if product.available == false %} {% if nocart == false %}- <span class="red">Sold Out</span> {% endif %}{% endif %}
+			</span>
+			{% if product.available == true %}CAD{% endif %}
+		</div>
+
+		
+		{% if product.available == true %}
+
+			
+		<form action="/cart/add" class="dashafter" method="post" enctype="multipart/form-data" id="sizeselector">
+			<label>Size</label>
+
+			{% if pages[bohdansizing].content != "" %}
+				 <a href="#" class="sizeingchart">Size Chart</a>
+			{% endif %}
+			
+			<div id="sizesmenue">
+				<ul>
+					{% for variant in product.variants %}
+						{% if variant.available == true %}
+							<li {% if forloop.first %}class="selected"{% endif %}><a href="{{ variant.id }}">{{ variant.title }}</a></li>
+						{% endif %}
+					{% endfor %}
+				</ul>
+				<div id="dobulearrow">&#187;</div>
+			</div>
+			<div id="selector">
+				<select name="id">
+					{% for variant in product.variants %}
+						{% if variant.available == true %}
+							<option value="{{variant.id}}"> {{ variant.title }}</option>
+						{% endif %}
+					{% endfor %}
+				</select>
+			</div>
+				
+	<!-- 		<option disabled="disabled"> {{ variant.title }} - sold out!</option>			 -->
+			{% if nocart == false %}
+				<input type="submit" name="add" id="add" value="Add to Cart" class="button">
+			{% endif %}
+			
+			{% if nocart == true %}	
+				<div class="nocart">
+					Phone or email Order Only - Please contact info@shoplostfound.com / 647.348.2810
+				</div>
+			{% endif %}
+			
+		</form>
+		{% endif %}
+		
+		
+		<!--
+		{% if pages[bohdansizing].content != "" %}
+				<a href="#" class="sizeingchart dashafter">Sizing Chart</a>
+		{% endif %}-->
+
+
+		{% if product.description != "" %}
+			<div class="description" itemprop="description">
+				{{ product.description }}
+			</div>
+
+		{% else %}
+				
+			{% if product.metafields.c_f.sizes or product.metafields.c_f.overview-detail1 %}
+				<ul class="navproduct">
+					{% if product.metafields.c_f.overview-detail1 %}
+						<li><a href="#overview">Overview</a></li>
+
+						{% if product.metafields.c_f.sizes %}
+							<li>//</li>
+						{% endif %}
+					{% endif %}
+					
+					
+					<li>
+					 
+					</li>
+					
+					<!--
+					{% if product.metafields.c_f.sizes %}
+						<li><a href="#sizes">Sizes</a></li>
+					{% endif %}
+					-->
+				</ul>
+			{% endif %}
+
+			<div>
+				{%if product.metafields.c_f.overview-detail1%}
+					<div>
+						<ul >
+							{%if product.metafields.c_f.overview-detail1%}
+								<li>{{product.metafields.c_f.overview-detail1}}</li>
+							{%endif%}
+							{%if product.metafields.c_f.overview-detail2%}
+								<li>{{product.metafields.c_f.overview-detail2}}</li>
+							{%endif%}
+							{%if product.metafields.c_f.overview-detail3%}
+								<li>{{product.metafields.c_f.overview-detail3}}</li>
+							{%endif%}
+							{%if product.metafields.c_f.overview-detail4%}
+								<li>{{product.metafields.c_f.overview-detail4}}</li>
+							{%endif%}
+							{%if product.metafields.c_f.overview-detail5%}
+								<li>{{product.metafields.c_f.overview-detail5}}</li>
+							{%endif%}
+							{%if product.metafields.c_f.overview-detail6%}
+								<li>{{product.metafields.c_f.overview-detail6}}</li>
+							{%endif%}
+							{%if product.metafields.c_f.overview-detail7%}
+								<li>{{product.metafields.c_f.overview-detail7}}</li>
+							{%endif%}
+						</ul>
+					</div>
+				{% endif %}
+
+				{% if product.metafields.c_f.sizes %}
+					<div>	
+						{{ product.metafields.c_f.sizes}}
+					</div>
+				{% endif %}
+			</div>
+		{% endif %}
+		
+		{% if product.price > 60000%}
+			<div class="freeshipping dashafter">
+				{{ pages["shipping-policy-north-america"].content }}
+			</div>
+		{% elsif product.price > 30000%}
+			<div class="freeshipping dashafter">
+				{{ pages["shipping-policy-canada"].content }}
+			</div>
+		{% endif %}
+
+
+		
+		
+	</div>
+</div>
+
+{% assign limit = 3 %}
+{% assign skip_product = product %}
+{% assign products = collection.products %}
+{% if products %}
+
+<h4 class="">Related Items</h4>
+{% include 'product-loop' %}
+
+{% endif %}
+
+
+
+
+<h4 id="brandlisttitle">Our Brands</h4>
+
+{% include 'ourbrands' %}
+

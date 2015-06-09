@@ -1,0 +1,63 @@
+[
+  {
+    "name": "Welcome",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Theme settings allow designers to provide an easy way for any user to customize the look and feel of their shop without having to delve into HTML or CSS code. Please see our [help page on theme settings](http:\/\/wiki.shopify.com\/Theme_Settings) to learn more about how you can make your theme customizable."
+      }
+    ]
+  },
+  {
+    "name": "General",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Logo Options"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_logo",
+        "label": "Use Custom Logo?"
+      },
+      {
+        "type": "image",
+        "id": "logo.png",
+        "label": "Custom Logo",
+        "max-width": 940,
+        "max-height": 300
+      },
+      {
+        "type": "paragraph",
+        "content": "Maximum logo dimensions are 940px wide by 300px high.Your uploaded file will be resized to fit within those constraints.Need a full-width banner? Upload an image with a width of 940px, and a height of 300px or less."
+      },
+      {
+        "type": "image",
+        "id": "favicon.png",
+        "label": "Favicon (32x32)",
+        "max-width": 32,
+        "max-height": 32
+      },
+      {
+        "type": "text",
+        "id": "author",
+        "label": "Shop Author"
+      },
+      {
+        "type": "link_list",
+        "id": "main_linklist",
+        "label": "Main Menu Linklist"
+      },
+      {
+        "type": "checkbox",
+        "id": "frontpageslide2",
+        "label": "Use frontpageslide2"
+      },
+      {
+        "type": "checkbox",
+        "id": "frontpageslides3",
+        "label": "Use frontpageslides3"
+      }
+    ]
+  }
+]

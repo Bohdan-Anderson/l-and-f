@@ -1,0 +1,6 @@
+<ul id="brandlist">
+{% for collection in collections %}{% unless collection.handle == 'frontpage' or collection.handle == 'new-arrivals' or collection.handle == 'sale'%}{% capture collection_title %}{{ collection.title | escape }}{% endcapture %}{% if collection.products_count > 0 %}<li class="brandlink">	
+			<p>{{collection.handel}}</p>
+			<a href="{{ collection.url }}" title="Browse {{ collection_title }}">{{ collection.title }}</a>
+		</li>{% endif %}{% cycle '', '', new_row %}{% endunless %}{% endfor %}
+</ul>

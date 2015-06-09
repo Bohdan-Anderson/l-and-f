@@ -1,0 +1,23 @@
+{
+  "current": {
+    "customer_layout": "theme",
+    "author": "",
+    "checkout_banner_background_color": "#ffffff",
+    "checkout_headline": "",
+    "checkout_accent_color": "#2a9dcc",
+    "checkout_button_color": "#2a9dcc",
+    "checkout_call_to_action_color": "#8fc243",
+    "checkout_logo": "",
+    "use_logo": true,
+    "checkout_use_header_image": false,
+    "main_linklist": "2014-main-menue",
+    "frontpageslide2": true,
+    "frontpageslides3": true
+  },
+  "presets": {
+    "Slate": {
+      "use_logo": false,
+      "customer_layout": "theme"
+    }
+  }
+}

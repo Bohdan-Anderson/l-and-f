@@ -1,0 +1,11 @@
+{% if product %}
+	{% for pro in products limit: limit%}
+		{% if pro.title == product.title %}
+			{% assign limit = 4 %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+<ul class="products">
+
+	{% for product in products limit: limit %}{% if product.id == skip_product.id or skip == true %}{% assign product_found = true %}{% else %}{% include 'product-thumbnail' %}{% endif %}{% endfor %}
+</ul>

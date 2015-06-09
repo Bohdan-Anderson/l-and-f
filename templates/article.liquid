@@ -1,0 +1,38 @@
+
+<div class="breadcrumbs">
+	<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ shop.url }}" title="{{ shop.name | escape }}" itemprop="url"><span itemprop="title">Home</span></a></span>
+	&#62;
+	<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><a href="{{ blog.url }}" title="{{ blog.title | escape }}" itemprop="url"><span itemprop="title">{{ blog.title }}</span></a></span>
+	&#62;
+	<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb"><span itemprop="title">{{ article.title }}</span></span>
+</div>
+
+<h4>{{ article.title }}</h4>
+
+<div id="articlecontent">
+	<div class="article">
+		{{ article.content }}
+
+	</div><div class="listofblogs">
+
+
+		<h3>Recent Articles</h3>
+		<ul>
+			{% for article in blogs["blog"].articles limit:5 %}
+				<li>
+					<a href="{{ article.url }}" title="{{ article.title | escape }}">{{ article.title }}</a>
+					<span >{{ article.published_at | date: "%B %d, %Y" }}</span>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+
+	<div class="subsection">
+		{% for tag in article.tags %}
+			{% if forloop.index0 == 0 %}
+				<span>Posted in</span>
+			{% endif %}
+			<a href="{{ shop.url}}/blogs/{{ blog.handle }}/tagged/{{ tag | handleize }}" title="{{ blog.title }} tagged {{ tag | escape }}">{{ tag }}</a>{% unless forloop.last %},{% endunless %}
+		{% endfor %}
+	</div>
+</div>

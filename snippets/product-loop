@@ -1,0 +1,35 @@
+{% assign product_found = false %}
+{% assign skip = false %}
+
+{% for product in products limit: limit %}
+
+	{% if forloop.first %}
+		<div class="section">
+			<div class="product_row">
+	{% endif %}
+
+	{% if product.id == skip_product.id or skip == true %}
+		{% assign product_found = true %}
+	{% else %}
+		{% if forloop.rindex0 == 0 and product_found == false and forloop.length != products.count %}
+			{% assign skip = true %}
+		{% else %}
+
+			{% include 'product-thumbnail' %}
+
+			{% if products_per_row == "2" %}
+				{% cycle '', new_row %}
+			{% elsif products_per_row == "3" %}
+				{% cycle '', '', new_row %}    
+			{% elsif products_per_row == "4" %}  
+				{% cycle '', '', '', new_row %}
+			{% endif %}
+		{% endif %}    
+	{% endif %}
+
+	{% if forloop.last %}
+			</div>
+		</div>
+	{% endif %}
+	
+{% endfor %}

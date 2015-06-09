@@ -1,0 +1,71 @@
+<!-- {% assign number_of_related_products_to_show = 3 %}
+{% assign image_size = 'compact' %}
+{% assign heading = 'Other fine products' %}
+ 
+{% assign number_of_related_products_to_fetch = number_of_related_products_to_show | plus: 1 %}
+ 
+{% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
+{% assign found_a_collection = false %}
+{% for c in product.collections %}
+	{% if found_a_collection == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+		{% assign found_a_collection = true %}
+		{% assign collection = c %}
+	{% endif %}
+{% endfor %}
+{% endif %}
+ 
+{% if collection and collection.products_count > 1 %}
+	<h3>{{ heading }}</h3>
+	<ul class="related-products">
+	{% assign current_product = product %}
+	{% assign current_product_found = false %}
+	{% for product in collection.products %}
+		{% if product.handle == current_product.handle %}
+			 {% assign current_product_found = true %}
+		{% else %}
+			{% unless current_product_found == false and forloop.last %}
+			<li>
+				<div class="image">
+					<a href="{{ product.url | within: collection }}" title="{{ product.title | escape }}">
+					{{ product.featured_image | product_img_url: image_size | img_tag }}
+					</a>
+				</div>
+				<h4><a href="{{ product.url }}" title="{{ product.title | escape }}">{{ product.title }}</a></h4>
+				<span class="money">{{ product.price | money }}</span>
+			</li>
+			{% endunless %}
+		{% endif %}
+	{% endfor %}
+	</ul>
+{% endif %} -->
+
+{% assign image_size = 'compact' %}
+{% assign heading = 'Other fine products' %}
+ 
+{% if product.tags.size > 0 %}
+ 
+<h2>{{ heading }}</h2>
+<ul class="related-products"></ul>
+ 
+ 
+<script>!window.jQuery && document.write('<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"><\/script>')</script>
+{{ 'api.jquery.js' | shopify_asset_url | script_tag }}
+ 
+<script type="text/javascript" charset="utf-8">
+//<![CDATA[
+	var recommendations = [];
+	{% for tag in product.tags %}
+	recommendations.push('{{ tag | handle }}');
+	{% endfor %}
+	if (recommendations.length) {
+		var list = jQuery('ul.related-products');
+		for (var i=0; i<recommendations.length; i++) {
+			jQuery.getJSON(recommendations[i] + '.js', function(product) {
+				list.append('<li><div class="image"><a href="' + product.url +'"><img src="' + product.images[0].replace(/(\.jpg|\.png|\.jpeg|\.gif)/, '_{{ image_size }}$1') + '" /></a></div><h4><a href="' + product.url + '">' + product.title + '</a></h4><span class="money">' + Shopify.formatMoney(product.price, "{{ shop.money_format }}") + '</span></li>');
+			});
+		}
+	}
+//]]>
+</script>
+ 
+{% endif %}

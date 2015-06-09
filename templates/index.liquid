@@ -1,0 +1,56 @@
+{% assign page = pages.frontpage %}
+<!-- {{ page.content }} -->
+
+<div class="imagefullwidth" >
+
+	{% for article in blogs['frontpageslides'].articles limit: 1 %}
+		{{article.excerpt}}				
+	{% endfor %}
+</div>
+
+{% if settings.frontpageslide2 %}
+	<a href="{{ blogs[settings.blog_widget_select].url }}"></a>
+
+	<div class="imagefullwidth">
+		{% for article in blogs['frontpageslide2'].articles limit: 1 %}
+			{{article.excerpt}}
+		{% endfor %}
+	</div>
+{% endif %}
+
+
+{% if settings.frontpageslides3 %}
+	<a href="{{ blogs[settings.blog_widget_select].url }}"></a>
+
+	<div class="imagefullwidth">
+		{% for article in blogs['frontpageslides3'].articles limit: 1 %}
+			{{article.excerpt}}
+		{% endfor %}
+	</div>
+{% endif %}
+
+<h4 >Recent Articles</h4>
+
+	<ul id="recent-articles">
+		{% for article in blogs['blog'].articles limit:4 %}<li>
+			<div id="atrilcetitle">
+				<div>
+					<a href="{{ article.url }}" title="{{ article.title | escape }}">{{ article.title }}</a>
+				</div>
+			</div>
+			<div class="articlecontent-inline">
+				{{ article.excerpt }}
+			</div>
+			<div>
+				<a href="{{ article.url }}" title="{{ article.title | escape }}" > read more &#187;</a>
+			</div>
+		</li>{% endfor %}
+	</ul>
+
+
+<h4 id="brandlisttitle">Our Brands</h4>
+
+{% include 'ourbrands' %}
+
+
+

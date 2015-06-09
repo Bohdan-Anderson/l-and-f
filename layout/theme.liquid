@@ -1,0 +1,202 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js"> <!--<![endif]-->  
+<head>
+	<meta charset="utf-8">
+	
+	<meta name="google-site-verification" content="2x9LBh7uqpPiIToJtT6fSWSHrqlQPRoWSUtOw1N2p0g"/>
+	
+	<meta name="HandheldFriendly" content="True">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
+
+	<link rel="shortcut icon" type="image/x-icon" href="{{ 'favicon.png' | asset_url }}">
+	<link rel="canonical" href="{{ canonical_url }}" />
+
+	{% if template == 'index' %}
+		<title>{{ shop.name }} | {{ page_title }}</title>
+	{% elsif template == '404' %}
+		<title>Page Not Found | {{ shop.name }}</title>
+	{% else %}
+		<title>{{ page_title }} | {{ shop.name }}</title>
+	{% endif %}
+
+	{% if template contains 'list-collections' %}
+		<meta name="description" content="Product collections from {{ shop.name }} - Page {{ current_page}}" />
+	{% elsif page_description != '' %}
+		<meta name="description" content="{{ page_description }}" />
+	{% endif %}
+
+
+	{% if template contains 'product' %}
+		<meta property="og:url" content="{{ shop.url }}{{ product.url }}" />
+		<meta property="og:title" content="{{ product.title }}" />
+		<meta property="og:description" content="{{ page_description }}" />
+		<meta property="og:image" content="{{ product.featured_image | product_img_url: 'medium' }}" />
+		<meta property="og:type" content="product" />
+	{% elsif template contains 'article' %}
+		<meta property="og:url" content="{{ shop.url }}{{ article.url }}" />
+		<meta property="og:title" content="{{ article.title }}" />
+		<meta property="og:description" content="{{ page_description }}" />
+		<meta property="og:type" content="article" />
+		{% if article.content contains "img" %}
+			{% assign src = article.content | split: 'src="' %}
+			{% assign src = src[1] | split: '"' | first | replace: '//cdn', 'http://cdn' | replace: 'http:http://', 'http://' | remove: 'https:'  %}
+			{% if src %}<meta property="og:image" content="{{ src }}" />{% endif %}
+		{% endif %}
+	{% else %}
+		<meta property="og:image" content="{{ 'logo.png' | asset_url }}" />
+		<meta property="og:url" content="{{ canonical_url }}" />
+		<meta property="og:title" content="{{ page_title | escape }}" />
+		<meta property="og:description" content="{{ page_description }}" />
+		<meta property="og:type" content="website" />
+	{% endif %}
+
+	
+	<link rel="canonical" href="{{ canonical_url }}" />
+	<meta name="viewport" content="width=device-width" />  
+	{{ content_for_header }}
+	{{ 'style.scss.css' | asset_url | stylesheet_tag }}
+	{{ 'tablet.scss.css' | asset_url | stylesheet_tag }}
+	{{ 'mobile.scss.css' | asset_url | stylesheet_tag }}
+
+	{{ 'style.nav.scss.css' | asset_url | stylesheet_tag }}	
+	{{ 'modernizer.min.js'| asset_url | script_tag }}	
+	{{ '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js' | script_tag }}
+</head>
+<body id="{{ page_title | handle }}" class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
+
+
+<div id="wrapper">
+
+
+	<div id="topbar">
+		<div id="lefttopbar">
+			CURRENCY — CAD 
+		</div>
+		<div id="righttopbar">
+			<a href="/cart">cart ({{ cart.item_count }})</a>
+			<a href="/cart">CheckOut</a>
+			<form class="search" action="/search">
+				<input type="hidden" name="type" value="product" />
+				<input type="text" name="q" class="search_box" placeholder="SEARCH" value="{{ search.terms }}" />
+				<input type="submit" class="submit" value="»">
+			</form>			
+		</div>
+	</div>
+
+
+
+	
+	{% if settings.use_logo %}
+	<div id="logo">
+		<a href="/">{{ 'logo.png' | asset_url | img_tag: shop.name }}</a>
+	</div>
+	{% endif %}
+
+
+
+
+	<div id="nav" class="">
+		<div id="toggleicon">
+			<span id="toggleicon-top"></span>
+			<span id="toggleicon-middle"></span>
+			<span id="toggleicon-bottom"></span>
+		</div>
+		<div>
+		<ul>
+		{% for link in linklists[settings.main_linklist].links %}
+			<li class="{% if link.active %}selected{% endif %} {% if has_drop_down %}hassublinks{% endif %}">
+				
+				{% if link.title == "Brands" %}
+					<a href="#" id="brandslink" title="{{ link.title }}" class="{% if link.active %}active{% endif %}">{{ link.title }}<span class="bellowarrow"><span></span></span></a>
+					<div id="navbrandlist">
+						{% include 'ourbrands' %}
+						<div class="exit">X</div>
+					</div>
+					
+				{% elsif  link.title == "Categories"%}
+					<a href="#" id="categorylink" title="{{ link.title }}" class="{% if link.active %}active{% endif %}">{{ link.title }}<span class="bellowarrow"><span></span></span></a>
+					<div id="navcollectionlist">
+						<ul id="collections">
+							<li class="collectionlink">		
+								<a href="/collections/all" title="Browse All" class="shopall block">Shop All</a><br>
+								<a href="/collections/last-chance" title="Sale" class="shopall block dashafterleft">Sale</a>
+							</li>{% for product_type in shop.types %}<li class="collectionlink">
+									{{ product_type | link_to_type }}
+								</li>{% endfor %}
+						</ul>
+						<div class="exit">X</div>
+					</div>
+					
+				{% elsif  link.title == "New Arrivals"%}
+					<a href="/collections/{{ link.handle }}?sort_by=created-descending" title="{{ link.title }}" class="{% if link.active %}active{% endif %}">{{ link.title }}</a>	
+				{% else %}
+					<a href="{{link.url}}" title="{{ link.title }}" class="{% if link.active %}active{% endif %}">{{ link.title }}</a>
+				{% endif %}
+			</li>
+		{% endfor %}					
+		</ul>
+		</div>
+	</div>
+
+	<div id="popoutnav">
+
+	</div>
+
+	<div class="linebottom"></div>
+
+
+	{{ content_for_layout }}
+
+	<div id="footer">
+		<div>
+			<div>
+				<span class="dashafter"><a href="http://shoplostfound.com/pages/about-us">COMPANY</a></span>
+				<a href="http://shoplostfound.com/pages/about-us"> About</a>
+				<a href="http://shoplostfound.com/pages/contact">Contact</a>
+				<a href="http://shoplostfound.com/pages/shipping" class="dashafter">Shipping policy</a>
+				<a target="_blank" href="http://workingtitleshop.com">Working Title</a>
+			</div><div>	
+				<span class="block">Join our Newsletter</span>
+				<form accept-charset="UTF-8" action="/contact" class="contact-form dashafter" method="post"><input name="form_type" type="hidden" value="customer"><input name="utf8" type="hidden" value="✓">
+					<input type="hidden" id="contact_tags" name="contact[tags]" value="prospect,newsletter">
+					<input type="hidden" id="newsletter-first-name" name="contact[first_name]" value="Subscriber">
+					<input type="hidden" id="newsletter-last-name" name="contact[last_name]" value="Newsletter">
+					<input type="email" id="contact_email" name="contact[email]" required="" pattern="[^ @]*@[^ @]*" placeholder="Email"><input type="submit" class="submit" value="»">
+				</form>
+				
+				<a href="https://twitter.com/shoplostfound" title="Lost &amp; Found on Twitter" class="social_link block" rel="me" target="_blank"><img src="{{ 'sm-twitter.png' | asset_url }}"></a>
+				<a href="http://facebook.com/shoplostfound" title="Lost &amp; Found on Facebook" class="social_link block smallbuffer" rel="me" target="_blank"><img src="{{ 'sm-fb.png' | asset_url }}"></a>
+				<a href="http://shoplostfound.tumblr.com/" title="Lost &amp; Found on Tumblr" class="social_link block smallbuffer" rel="me" target="_blank"><img src="{{ 'sm-tum.png' | asset_url }}"></a>
+				<a href="http://instagram.com/shoplostfound" title="Lost &amp; Found on Instagram" class="social_link block smallbuffer" rel="me" target="_blank"><img src="{{ 'sm-insta.png' | asset_url }}"></a>
+			</div><div>
+				<span> Lost &amp; Found</span>
+				<a href="tel:647 348 2810">+ 647.348.2810</a>
+				<span> 44 Ossington ave. </span>
+				<span class="dashafter"> Toronto ON M6J 2Y7 </span>
+				<table>
+					<tbody><tr><td class="">Mon - Sat</td>	<td class="">:</td>	<td class="">10am - 7pm</td></tr>
+					<tr><td class="smallbuffer">Sunday</td>		<td class="smallbuffer">:</td>	<td class="smallbuffer">11am - 6pm</td></tr>
+				</tbody></table>
+			</div>
+		</div>
+	</div>
+
+</div>	
+	{{ 'shop.js'  | asset_url | script_tag }}
+
+	{% if template contains 'product' %}
+		{{ 'jquery.zoom.min.js' | asset_url | script_tag }}
+		{{ 'products.js' | asset_url | script_tag }}
+	{% endif %}
+
+	<script type="text/javascript">
+		$( document ).ready(app.init);
+		$( window ).load(app.blogFullHeight);
+	</script>
+
+</body>
+</html>

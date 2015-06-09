@@ -1,0 +1,30 @@
+
+<div class="breadcrumbs">
+	{% if search.performed %}
+		{% paginate search.results by search_pagination %}
+				<span class="alluppder">{{ search.results_count }} {{ search.results_count | pluralize: 'result', 'results' }} for <span class="black">"{{search.terms | escape}}"</span></span>
+		{% endpaginate %}
+	{% endif %}
+</div>
+
+<h4>Search</h4>
+
+{% if search.performed %}
+{% paginate search.results by 42 %}
+
+{% if search.results_count == 0 %}  
+<p>Your search for "{{ search.terms }}" did not yield any results.</p>              
+{% else %}
+
+{% assign products = search.results %}
+{% include 'product-loop' %}
+{% endif %}    
+{% if paginate.pages > 1 %}
+{{ paginate | default_pagination }}
+{% endif %}
+{% endpaginate %}    
+{% endif %}  
+
+<h4 id="brandlisttitle">Our Brands</h4>
+
+{% include 'ourbrands' %}

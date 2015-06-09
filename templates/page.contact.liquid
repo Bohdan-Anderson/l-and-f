@@ -1,0 +1,39 @@
+<h4 class="smallbuffer secondtitle dashafter ">{{ page.title }}</h4>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsprgq2AfDNOAr9zdeizAbhG_FNGyP8-4&sensor=false"></script>
+<div id="map-canvas"></div>
+
+
+
+<div class="contact">
+
+{{ page.content }}{% form 'contact' %}
+	{% if form.posted_successfully? %}
+		<p class="quote">Thanks for contacting us! We'll get back to you as soon as possible.</p>
+	{% endif %}
+
+	{% if form.errors %}
+		<p class="quote">Not all the fields have been filled in correctly. Please try again.</p>
+	{% endif %}
+
+	<label for="contact_form_name">Name <span class="red">*</span></label>
+	<input type="text" id="contact_form_name" name="contact[name]" required value="{{ contact.fields.name }}" />
+
+	<label for="contact_form_email">Email <span class="red">*</span></label>
+	<input type="text" id="contact_form_email" name="contact[email]" required pattern="[^ @]*@[^ @]*" value="{{ contact.fields.email }}"/>
+
+	<label for="contact_form_phone">Phone Number</label>
+	<input type="text" id="contact_form_phone" name="contact[phone]" value="{{ contact.fields.phone }}" />
+
+	<label for="contact_message">Message</label>       
+	<textarea id="contact_message" name="contact[body]" required rows="5">{{ contact.fields.body }}</textarea>
+
+	<input type='submit' class="submit action_button" value="Submit" />
+
+{% endform %}
+</div>
+
+
+<h4 id="brandlisttitle">Our Brands</h4>
+
+{% include 'ourbrands' %}
