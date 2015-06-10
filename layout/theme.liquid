@@ -58,13 +58,9 @@
 	<link rel="canonical" href="{{ canonical_url }}" />
 	<meta name="viewport" content="width=device-width" />  
 	{{ content_for_header }}
-	{{ 'style.scss.css' | asset_url | stylesheet_tag }}
-	{{ 'tablet.scss.css' | asset_url | stylesheet_tag }}
-	{{ 'mobile.scss.css' | asset_url | stylesheet_tag }}
+	{{ 'style.min.css' | asset_url | stylesheet_tag }}
 
-	{{ 'style.nav.scss.css' | asset_url | stylesheet_tag }}	
 	{{ 'modernizer.min.js'| asset_url | script_tag }}	
-	{{ '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js' | script_tag }}
 </head>
 <body id="{{ page_title | handle }}" class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}" >
 
@@ -186,12 +182,8 @@
 	</div>
 
 </div>	
-	{{ 'shop.js'  | asset_url | script_tag }}
+	{{ 'main.min.js'  | asset_url | script_tag }}
 
-	{% if template contains 'product' %}
-		{{ 'jquery.zoom.min.js' | asset_url | script_tag }}
-		{{ 'products.js' | asset_url | script_tag }}
-	{% endif %}
 
 	<script type="text/javascript">
 		$( document ).ready(app.init);

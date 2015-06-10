@@ -39,11 +39,7 @@ module.exports = function(grunt) {
 				files: {
 					'assets/main.min.js': [
 						'assets/js/lib/jquery.min.js',
-						'assets/js/lib/jquery.waypoints.js',
-						'assets/js/lib/slick.min.js',
-						'assets/js/lib/skrollr.min.js',
-						'assets/js/lib/jquery.smoothState.js',
-						'assets/js/lib/js.cookie.js',
+						'assets/js/lib/jquery.zoom.min.js',
 						'assets/js/*.js'
 					]
 				}
