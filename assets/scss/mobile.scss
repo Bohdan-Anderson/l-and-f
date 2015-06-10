@@ -1,0 +1,183 @@
+@import "settings";
+
+
+@media (max-width: 600px) {
+
+
+/* Mobile Nav */
+	#topbar form .search_box {
+	 width: auto;
+	}
+	
+
+/* Index */
+	#recent-articles {
+		li{
+			display: none;
+		}
+		li:first-child{
+			display: block;
+			width: 100%;
+		}
+		li:nth-child(2){
+			display: block;
+			width: 100%;
+			padding-bottom: 7em;
+		}
+
+	}
+
+/* Footer */
+	#footer div{
+		div{
+			width: 100%;
+			padding-bottom: 2em;
+		}
+		div:last-child{
+			padding-bottom: 0em;
+		}
+	}
+
+
+/* Product */
+	.products{
+		> li{
+			width: 100%;
+			display: block;
+		}
+		li:last-child{
+			display: none;
+		}
+	}
+	#productwrapper form input{
+		margin-top: 1.25em;
+	}
+	.template-collection .products{
+		li:last-child{
+			display: inline-block;
+		}
+	}
+	
+	#productwrapper {
+		.images{
+			width: 100%;
+		}
+	
+		.info {
+			width: 100%;
+			
+			.dashafter:after {
+				margin: 20px auto;
+				border-bottom: 1px solid black;
+				height: 0.1em;
+			}
+			
+		}
+	
+		.description{
+			width: 70%;
+			text-align: center;
+			
+		}
+		
+		form {
+			width: 70%;
+		}
+		
+		.title, .price {
+			width: 60%;
+			text-align: center;
+			padding: 0 10%;
+		}
+	
+	}
+
+
+/* General */
+	#brandlisttitle{
+		display:none;
+	}
+	#brandlist{
+		display:none;
+	}
+	#productwrapper{
+		padding-bottom: 40px;
+	}
+
+
+
+	#cartpage{
+		.image{
+			width: 100%;
+			img{
+				width: 50%;
+			}
+			div{
+				width: 100%;
+			}
+		}
+		.title{
+			width: 100%;
+		}
+		table,tr{
+			display: block;
+		}
+		tr{
+			padding-bottom: 0px;
+			margin-bottom: 40px;
+			border-bottom: solid 1px $border-color;
+		}
+		td{
+			display: inline-block;
+			width: 30%;
+		}
+		td:nth-child(2){
+			display: none;
+		}
+		.desc{
+			width: 100%;
+		}
+		table tr:first-child{
+			display: none;
+		}
+		.break{
+			display: none;
+		}
+		.item{
+			vertical-align: bottom;
+		}
+		.item.price:before,.item.qty:before{
+			display: none;
+		}
+		.price{
+			text-align: center;
+		}
+		.remove {
+			text-align: right;
+			a{
+				margin: 0;
+			}
+			div{
+				text-align: right;
+				display: inline-block;
+				margin: 0;
+			}
+		}
+
+		.finalcheckout {
+			.leftcheckout{
+				input{
+					padding-left: 0;
+				}
+				width: 100%;
+				padding-bottom: 50px;
+			}
+			.rightcheckout{
+				width: 100%;
+			}
+		}
+	}
+
+}
+
+
