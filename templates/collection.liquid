@@ -2,7 +2,6 @@
 
 
 
-
 <div class="breadcrumbs">
 	{% if collection.handle != newArrivalsPage %}
 			<span itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
@@ -42,7 +41,7 @@
 	</div>
 {% endif %}
 
-{% assign products = collection.products %}
+{% assign products = collection.products | sort: 'published_at' %}
 {% assign products_per_row = settings.products_per_row %}
 {% include 'product-loop' %}
 

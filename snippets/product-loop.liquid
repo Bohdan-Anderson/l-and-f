@@ -7,5 +7,5 @@
 {% endif %}
 <ul class="products">
 
-	{% for product in products limit: limit %}{% if product.id == skip_product.id or skip == true %}{% assign product_found = true %}{% else %}{% include 'product-thumbnail' %}{% endif %}{% endfor %}
+	{% for product in products reversed limit: limit %}{% if product.id == skip_product.id or skip == true %}{% assign product_found = true %}{% else %}{% include 'product-thumbnail' %}{% endif %}{% endfor %}
 </ul>

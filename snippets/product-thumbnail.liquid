@@ -30,7 +30,7 @@
 		<a href="{{ product.url | within: collection }}">
 
 			<span class="dashafter"></span>
-			<span class="dashafter"><span class="title">{{ product.title }}</span></span>
+			<span class="dashafter"><h2 class="title">{{ product.title }}</h2></span>
 
 			{% if product.compare_at_price_max > product.price %}
 				<span class="strike">{{ product.compare_at_price_max | money }}</span>
