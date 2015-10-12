@@ -1,9 +1,9 @@
 <li>
 	<a href="{{ product.url | within: collection }}">
 		<div class="rollover">
-			<div class="backgroundimageone" style="background-image:url({{ product.images[0] | product_img_url: 'medium' }})">
+			<div class="backgroundimageone" style="background-image:url({{ product.images[0] | product_img_url: 'large' }})">
 				{% if product.images[1]%}
-					<div  class="bk2" style="background-image:url({{ product.images[1] | product_img_url: 'medium' }})"></div>
+					<div  class="bk2" style="background-image:url({{ product.images[1] | product_img_url: 'large' }})"></div>
 				{% endif %}			
 			</div>
 			{% if product.compare_at_price_max > product.price %}

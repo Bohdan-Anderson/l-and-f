@@ -70,7 +70,7 @@
 
 	<div id="topbar">
 		<div id="lefttopbar">
-			CURRENCY — CAD 
+			{% include 'currency-picker' %}
 		</div>
 		<div id="righttopbar">
 			<a href="/cart">cart ({{ cart.item_count }})</a>
@@ -189,6 +189,6 @@
 		$( document ).ready(app.init);
 		$( window ).load(app.blogFullHeight);
 	</script>
-
+	{% include 'currencies' %}
 </body>
 </html>
