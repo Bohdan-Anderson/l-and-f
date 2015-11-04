@@ -12,7 +12,14 @@
     "checkout_use_header_image": false,
     "main_linklist": "2014-main-menue",
     "frontpageslide2": true,
-    "frontpageslides3": true
+    "frontpageslides3": true,
+    "frontpageslide4": false,
+    "frontpageslide5": false,
+    "frontpageslide6": false,
+    "frontpageslide7": false,
+    "frontpageslide8": false,
+    "frontpageslide9": false,
+    "frontpageslide10": false
   },
   "presets": {
     "Slate": {

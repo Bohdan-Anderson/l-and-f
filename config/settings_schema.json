@@ -57,6 +57,41 @@
         "type": "checkbox",
         "id": "frontpageslides3",
         "label": "Use frontpageslides3"
+      },
+      {
+        "type": "checkbox",
+        "id": "frontpageslide4",
+        "label": "Use frontpageslide4"
+      },
+      {
+        "type": "checkbox",
+        "id": "frontpageslides5",
+        "label": "Use frontpageslide5"
+      },
+      {
+        "type": "checkbox",
+        "id": "frontpageslide6",
+        "label": "Use frontpageslide6"
+      },
+      {
+        "type": "checkbox",
+        "id": "frontpageslides7",
+        "label": "Use frontpageslide7"
+      },
+      {
+        "type": "checkbox",
+        "id": "frontpageslide8",
+        "label": "Use frontpageslide8"
+      },
+      {
+        "type": "checkbox",
+        "id": "frontpageslides9",
+        "label": "Use frontpageslide9"
+      },
+      {
+        "type": "checkbox",
+        "id": "frontpageslides10",
+        "label": "Use frontpageslide10"
       }
     ]
   }

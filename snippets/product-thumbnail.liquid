@@ -1,5 +1,12 @@
+{% assign exclusive = false %}
+
 <li>
 	<a href="{{ product.url | within: collection }}">
+	{% for tag in product.tags%}
+		{% if tag == "exclusive"%}
+			{% assign exclusive = true %}
+		{% endif %}
+	{% endfor %}
 		<div class="rollover">
 			<div class="backgroundimageone" style="background-image:url({{ product.images[0] | product_img_url: 'large' }})">
 				{% if product.images[1]%}
@@ -8,6 +15,10 @@
 			</div>
 			{% if product.compare_at_price_max > product.price %}
 				<div class="sale">Sale</div>
+			{% endif %}
+			
+			{% if exclusive == true %}
+				<div class="exclusive">Lost &amp; Found Exclusive</div>
 			{% endif %}
 			<div class="slideupsize">
 				<div>
@@ -40,7 +51,7 @@
 					<small><em>from</em></small>
 				{% endif %}
 				<span {% if product.compare_at_price_max > product.price %}class="red" {% endif %}>
-				{{ product.price_min | money }} CAD
+				{{ product.price_min | money }} 
 				</span>
 			{% else %}
 				<span {% if product.compare_at_price_max > product.price %}class="lightgrey" {% endif %}>{{ product.price_min | money }}</span> - Sold Out

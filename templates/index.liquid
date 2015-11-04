@@ -29,6 +29,76 @@
 	</div>
 {% endif %}
 
+{% if settings.frontpageslide4 %}
+	<a href="{{ blogs[settings.blog_widget_select].url }}"></a>
+
+	<div class="imagefullwidth">
+		{% for article in blogs['frontpageslide4'].articles limit: 1 %}
+			{{article.excerpt}}
+		{% endfor %}
+	</div>
+{% endif %}
+
+{% if settings.frontpageslide5 %}
+	<a href="{{ blogs[settings.blog_widget_select].url }}"></a>
+
+	<div class="imagefullwidth">
+		{% for article in blogs['frontpageslide5'].articles limit: 1 %}
+			{{article.excerpt}}
+		{% endfor %}
+	</div>
+{% endif %}
+
+{% if settings.frontpageslide6 %}
+	<a href="{{ blogs[settings.blog_widget_select].url }}"></a>
+
+	<div class="imagefullwidth">
+		{% for article in blogs['frontpageslide6'].articles limit: 1 %}
+			{{article.excerpt}}
+		{% endfor %}
+	</div>
+{% endif %}
+
+{% if settings.frontpageslide7 %}
+	<a href="{{ blogs[settings.blog_widget_select].url }}"></a>
+
+	<div class="imagefullwidth">
+		{% for article in blogs['frontpageslide7'].articles limit: 1 %}
+			{{article.excerpt}}
+		{% endfor %}
+	</div>
+{% endif %}
+
+{% if settings.frontpageslide8 %}
+	<a href="{{ blogs[settings.blog_widget_select].url }}"></a>
+
+	<div class="imagefullwidth">
+		{% for article in blogs['frontpageslide8'].articles limit: 1 %}
+			{{article.excerpt}}
+		{% endfor %}
+	</div>
+{% endif %}
+
+{% if settings.frontpageslide9 %}
+	<a href="{{ blogs[settings.blog_widget_select].url }}"></a>
+
+	<div class="imagefullwidth">
+		{% for article in blogs['frontpageslide9'].articles limit: 1 %}
+			{{article.excerpt}}
+		{% endfor %}
+	</div>
+{% endif %}
+
+{% if settings.frontpageslide10 %}
+	<a href="{{ blogs[settings.blog_widget_select].url }}"></a>
+
+	<div class="imagefullwidth">
+		{% for article in blogs['frontpageslide10'].articles limit: 1 %}
+			{{article.excerpt}}
+		{% endfor %}
+	</div>
+{% endif %}
+
 <h4 >Recent Articles</h4>
 
 	<ul id="recent-articles">
