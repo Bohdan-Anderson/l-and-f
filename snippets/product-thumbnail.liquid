@@ -1,6 +1,4 @@
-{% assign exclusive = false %}
-
-<li>
+{% assign exclusive = false %}<li>
 	<a href="{{ product.url | within: collection }}">
 	{% for tag in product.tags%}
 		{% if tag == "exclusive"%}
