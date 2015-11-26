@@ -114,8 +114,25 @@ h4{
 		#lefttopbar{
 			position: absolute;
 			left: 0;
-			padding: 1em 2em;
+			padding: 0.4em 2em;
 		}
+		
+		.currency-picker{
+			 border: 1px solid grey;
+			 background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 86% 43%;
+			 border-radius: 0;
+			 -webkit-border-radius: 0;
+			 -moz-border-radius: 0;
+			 padding: 8px 55px 8px 15px;
+			 appearance: none;
+			 -webkit-appearance: none;
+			 -moz-appearance: none;
+			 outline: 0;
+			 display: inline-block;
+			 color: $font-color;
+			 font-family: 'Courier New', Courier, monospace;
+		}
+		
 		#righttopbar{
 			display: inline-block;
 			padding: 0.1em .5em 0.5em 0;
@@ -529,6 +546,13 @@ h4{
 		}
 		a:hover{
 			color: #000;
+		}
+		
+		.exclusive {
+			background: darkgrey;
+			color: white;
+			width: 100%;
+			border: 1px solid darkgrey;
 		}
 	}
 
