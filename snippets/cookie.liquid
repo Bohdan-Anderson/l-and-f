@@ -1,0 +1,21 @@
+<div class="pop">
+	<button class="closeButton">X</button>
+	<span class="block">Join our Newsletter</span>
+	<form accept-charset="UTF-8" action="/contact" class="contact-form dashafter" method="post">
+		<input name="form_type" type="hidden" value="customer"><input name="utf8" type="hidden" value="✓">
+		<input type="hidden" id="contact_tags" name="contact[tags]" value="prospect,newsletter">
+		<input type="hidden" id="newsletter-first-name" name="contact[first_name]" value="Subscriber">
+		<input type="hidden" id="newsletter-last-name" name="contact[last_name]" value="Newsletter">
+		<input type="email" id="contact_email" name="contact[email]" required="" pattern="[^ @]*@[^ @]*" placeholder="Email"><input type="submit" class="submit" value="»">
+	</form>
+
+	{% include 'currency-picker' %}
+
+	<p class="legal">Speak of the devil, and he shall appear. I am the League of Shadows.
+		You fight like a younger man, there's nothing held back. It's admirable, but mistaken.
+		Yes. The fire rises. Your Punishment Must Be More Severe.
+		Citizens, take control. Take control of your city!
+		Peace has cost you your strength. Victory has defeated you. Search him. Then I will kill you. It will be extremely painful... for you
+	</p>
+
+</div>
