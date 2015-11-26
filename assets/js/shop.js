@@ -218,3 +218,24 @@ app.product = {
 	}
 
 }
+
+// this is where jazz attempts Javascript again. 
+
+localStorage.setItem("lf-currency","CDN")
+
+
+popup: function() {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
