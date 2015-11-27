@@ -49,7 +49,7 @@
 					<small><em>from</em></small>
 				{% endif %}
 				<span {% if product.compare_at_price_max > product.price %}class="red" {% endif %}>
-				{{ product.price_min | money }} 
+				{{ product.price | money_with_currency }}
 				</span>
 			{% else %}
 				<span {% if product.compare_at_price_max > product.price %}class="lightgrey" {% endif %}>{{ product.price_min | money }}</span> - Sold Out
