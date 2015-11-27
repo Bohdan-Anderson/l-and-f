@@ -1,7 +1,7 @@
 <ul>
     {% for collection in collections %}
     {% unless collection.handle == 'frontpage' %}
-	<li><a href="{{ collection.url }}">{{ collection.title }}</a>
+	<li><a href="{{ collection.url | sort_by:'created-decending' }}">{{ collection.title }}</a>
     {% endunless %}
     {% endfor %}
 </ul>

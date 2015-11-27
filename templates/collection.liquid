@@ -41,9 +41,11 @@
 	</div>
 {% endif %}
 
-{% assign products = collection.products | sort: 'published_at' %}
+
+{% assign products = collection.products %}
 {% assign products_per_row = settings.products_per_row %}
 {% include 'product-loop' %}
+
 
 
 <div class="paginate">
