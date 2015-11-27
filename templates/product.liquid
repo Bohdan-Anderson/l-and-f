@@ -83,7 +83,7 @@
 			<span class="strike">{% if product.price < product.compare_at_price_max %}{{ product.compare_at_price | money }}{% endif %}</span>
 
 			<span itemprop="price" content="{{ product.price | money_without_currency }}" class="{% if product.price < product.compare_at_price_max %}red{% endif %}">
-				{{ product.price | money }} {% if product.available == false %} {% if nocart == false %}- <span class="red">Sold Out</span> {% endif %}{% endif %}
+				{{ product.price | money_with_currency }} {% if product.available == false %} {% if nocart == false %}- <span class="red">Sold Out</span> {% endif %}{% endif %}
 			</span>
 			{% if product.available == true %}<!-- CAD -->{% endif %}
 		</div>
